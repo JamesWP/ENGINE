@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Canvas Game</title>
+	<style>
+		*{border:0; padding:0;}
+		#canvasWrap { width:1000px; height:400px; margin:0 auto;}
+	</style>
+	
+	<script src='lib/jquery.js'></script>
+	<script src='lib/E/main.js'></script>
+	<script src='lib/E/shapes.js'></script>
+	<script src='lib/E/controls.js'></script>
+	<script src='lib/E/vector.js'></script>
+	
+	<!--
+	<script src='javaclasstest.js'></script>
+	-->
+		
+	</script>
+	<script>
+		$(function(){
+		ENGINE.game.init(function(){
+			ENGINE.controls.addMouseListener(ENGINE.controls.LEFTMB,function(){
+				var speedsize = 5 - Math.random()*2;
+				var circle = new ENGINE.shapes.circle(speedsize*5,ENGINE.controls.getMouseX(),ENGINE.controls.getMouseY(),'#fc1',function(diff){
+					if(this.y<=ENGINE.game.height+this.diam)
+						this.y -= diff * 1/this.speed;
+					else
+						return false;
+				},{speed:speedsize});
+				ENGINE.game.add(circle);
+			});
+		},function(){
+			if(ENGINE.game.frame % 4 == 0){
+				var speedsize = 5 - Math.random()*2;
+				var width = (ENGINE.game.frame*157) % ENGINE.game.width;
+				var circle = new ENGINE.shapes.circle(speedsize*5,width,-speedsize*5,'#fc1',function(diff){
+					if(this.y<=ENGINE.game.height+this.diam)
+						this.y -= diff * 1/this.speed;
+					else
+						return false;
+				},{speed:speedsize});
+				ENGINE.game.add(circle);
+			}
+		});
+	});
+	
+	</script>
+</head>
+<body>
+	
+	<div id = 'canvasWrap'></div>
+
+</body>
+</html>

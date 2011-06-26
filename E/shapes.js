@@ -1,4 +1,6 @@
-
+/**
+ * file shapes.js
+ */
 (function(E){
 	
 	var shapes = {};
@@ -14,10 +16,8 @@
 		// functions
 		this. move	 	 = move || undefined;
 		this. paint 	 = function(ctx){
-			with(this){
-				ctx.fillStyle = colour;
-				ctx.fillRect(x,y,height,width);
-			}
+				ctx.fillStyle = this.colour;
+				ctx.fillRect(this.x,this.y,this.height,this.width);
 		};
 	};
 	shapes.circle = function circle(diam,x,y,colour,movefunc,vars){
@@ -31,13 +31,11 @@
 		// functions
 		this. move 		 = movefunc;
 		this. paint 	 = function(ctx){
-			with(this){
-				ctx.fillStyle = colour;
+				ctx.fillStyle = this.colour;
 				ctx.beginPath();
-				ctx.arc(x, y, diam, 0, Math.PI*2, true); 
+				ctx.arc(this.x, this.y, this.diam, 0, Math.PI*2, true); 
 				ctx.closePath();
 				ctx.fill();
-			}
 		};
 		for(var key in vars){
 			this[key] = vars[key];
@@ -47,3 +45,6 @@
 	
 	E.shapes = shapes;
 })(E);
+/**
+ * end of file shapes.js
+ */

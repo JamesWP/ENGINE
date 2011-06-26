@@ -1,3 +1,7 @@
+/**
+ * file vector.js
+ */
+
 (function(E){
 	var vector = function(newx,newy){
 		this. x = newx;
@@ -22,3 +26,7 @@
 	
 	E.vector = vector;
 })(E);
+
+/**
+ * end of file vector.js
+ */

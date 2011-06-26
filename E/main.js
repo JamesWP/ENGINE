@@ -1,5 +1,5 @@
 /***
-**
+** file main.js
 **/
 window.requestAnimFrame = (function(){
     return  window.requestAnimationFrame       || 
@@ -11,7 +11,7 @@ window.requestAnimFrame = (function(){
             return window.setTimeout(callback, 1000 / 60);
         };
 })();
-
+E = {};
 E.game = (function(){
 	var $canvas;
 	var canvas;
@@ -101,3 +101,6 @@ E.game = (function(){
 		offset	: offset
 	};
 })();
+/**
+ *  end of file main.js
+ */

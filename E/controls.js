@@ -1,14 +1,12 @@
+/**
+ * file controls.js
+ */
 (function(E){
 	var controls = function(){
-		
-		this. $canvas;
 		this. posx = 0;
 		this. posy = 0;
 		this. keys = {};
 		this. keyEvents = {}; 
-		this. leftmbstate;
-		this. rightmbstate;
-		this. middlembstate;
 		this. mouseEvents = {};
 		 
 		this. LEFTMB = 1;
@@ -126,3 +124,6 @@
 	
 	E.controls =  new controls();
 })(E);
+/**
+ * end of file controls.js
+ */
