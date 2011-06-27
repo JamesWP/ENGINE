@@ -20,9 +20,28 @@
 		
 	</script>
 	<script>
+		
 		$(function(){
+			function line(horz,offset){
+				var paint;
+				if(horz){
+					paint = function(ctx){
+						ctx.fillSytle = '#000';
+						ctx.fillRect(0, offset,E.game.height,1);
+					};
+				}else{
+					paint = function(ctx){
+						ctx.fillStyle = '#000';
+						ctx.fillRect(offset,0,1,E.game.width);
+					};
+				}
+				
+				return{
+					paint	: paint
+				}
+			}
 			E.game.init(function(){
-			
+				
 			},function(){
 			
 			});
