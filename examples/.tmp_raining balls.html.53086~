@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Canvas Game</title>
+	<style>
+		*{border:0; padding:0;margin:0;}
+		html,body{width:100%;height:100%;}
+		#canvasWrap { width:100%; height:100%; margin:0 auto;}
+	</style>
+	
+	<script src='lib/jquery.js'></script>
+	<script src='../E/main.js'></script>
+	<script src='../E/shapes.js'></script>
+	<script src='../E/controls.js'></script>
+	<script src='../E/vector.js'></script>
+	
+	<!--
+	<script src='javaclasstest.js'></script>
+	-->
+		
+	</script>
+	<script>
+		$(function(){
+			var element = '#canvasWrap';
+			E.game.init(element,function(){
+				E.controls.addMouseListener(E.controls.LEFTMB,function(){
+					var speedsize = 5 - Math.random()*2;
+					var circle = new E.shapes.circle(speedsize*5,E.controls.getMouseX(),E.controls.getMouseY(),'#fc1',function(diff){
+						if(this.y<=E.game.height+this.diam)
+							this.y += diff * 1/this.speed;
+						else
+							return false;
+					},{speed:speedsize});
+					E.game.add(circle);
+				});
+			},function(){
+				if(E.game.frame % 3 == 0){
+					var speedsize = 5 - Math.random()*2;
+					var width = (E.game.frame*Math.random()*140) % E.game.width;
+					var circle = new E.shapes.circle(speedsize*5,width,-speedsize*5,'#fc1',function(diff){
+						if(this.y<=E.game.height+this.diam)
+							this.y += diff * 1/this.speed;
+						else
+							return false;
+					},{speed:speedsize});
+					E.game.add(circle);
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	
+	<div id = 'canvasWrap'></div>
+
+</body>
+</html>
