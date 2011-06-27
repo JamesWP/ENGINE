@@ -16,8 +16,8 @@ E.game = (function(){
 	var $canvas;
 	var canvas;
 	var ctx;
-	var width = 1000;
-	var height= 400;
+	var width;
+	var height;
 	var frame = 0;
 	var loop;
 	var objects = [];
@@ -28,13 +28,19 @@ E.game = (function(){
 	function setTime(){
 		startTime = new Date().getTime();
 	}
-	function init(func,loopfn){
-		$('#canvasWrap').append('<canvas id="canvas"></canvas>');
+	function init(element,func,loopfn){
+		$element = $(element);
+		width  = this.width = $element.innerWidth();
+		height = this.height = $element.innerHeight();
+		var $canvasel = $('<canvas  id="canvas"></canvas>');
+		$canvasel.attr('height',this.height);
+		$canvasel.attr('width',this.width);
+		$element.append($canvasel);
 		$canvas = $('#canvas');
-		$canvas.attr('width',this.width);
-		$canvas.attr('height',this.height);
 		$canvas.attr('oncontextmenu','return false;');
-		//console.log($canvas);
+
+		$element.css('overflow','hidden');
+		console.log(this.height,this.width);
 		this.offset =  $canvas.offset();
 		canvas 	= $canvas[0];
 		ctx 	= canvas.getContext('2d');
@@ -48,21 +54,19 @@ E.game = (function(){
 		if(typeof func ==='function')
 			func();
 		
-		
+
+		E.controls.init();
 		console.log('init Done',ctx);
 		start();
-		E.controls.init();
 	}
 	
 	function add(obj){
 		objects.push(obj);
-		console.log('objects:',objects);
 	}
 	
 	function start(){
-		ctx.fillStyle = '#fff';
-		ctx.fillRect(0,0,width,height);
-		var diff = startTime - new Date().getTime();
+		ctx.clearRect(0,0,width,height);
+		var diff = new Date().getTime() - startTime;
 		update(diff);
 		if(typeof loop ==='function')
 			loop();
@@ -74,20 +78,21 @@ E.game = (function(){
 		var no = objects.length;
 		for(var i = 0 ; i<no;i++){
 			if(objects[i]){
-				if(objects[i].move(diff) == false){
-					forRemoval.push(i);
+				if(typeof objects[i].move === 'function' && objects[i].move(diff) == false){
+					//forRemoval.push(i);
+					objects[i].move = undefined;
 				}else{
 					objects[i].paint(ctx);
 				}
 			}
 		}
-		if(frame % 100 == 0){
+		/*if(frame % 500 == 0){
 			var no = forRemoval.length;
 			for(var i = 0 ; i<no;i++){
-				objects.splice(forRemoval[i],1);
+				//objects.splice(forRemoval[i],1);
 			}
 			forRemoval = [];
-		}
+		}*/
 	}
 
 	return{
