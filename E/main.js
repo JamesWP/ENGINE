@@ -71,7 +71,7 @@ E.game = (function(){
 		if(typeof loop ==='function')
 			loop();
 		E.game.frame++;
-		setTime();
+		setTime(); 
 		requestAnimFrame(start,canvas);
 	}
 	function update(diff){
