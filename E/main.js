@@ -86,13 +86,13 @@ E.game = (function(){
 				}
 			}
 		}
-		/*if(frame % 500 == 0){
+		if(frame % 500 == 0){
 			var no = forRemoval.length;
 			for(var i = 0 ; i<no;i++){
-				//objects.splice(forRemoval[i],1);
+				objects.splice(forRemoval[i],1);
 			}
 			forRemoval = [];
-		}*/
+		}
 	}
 
 	return{

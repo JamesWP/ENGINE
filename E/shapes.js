@@ -21,13 +21,11 @@
 		};
 	};
 	shapes.circle = function circle(diam,x,y,colour,movefunc,vars){
-		
 		// variables
 		this.y 			= y;
 		this.x 			= x;
 		this.diam 		= diam;
 		this.colour 	= colour;
-
 		// functions
 		this. move 		 = movefunc;
 		this. paint 	 = function(ctx){
