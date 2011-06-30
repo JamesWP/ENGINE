@@ -44,24 +44,24 @@
 			};
 			E.game.init('#canvasWrap',function(){
 				E.game.add(new E.shapes.rect({
-					width:20,
-					height:20,
+					width:10,
+					height:10,
 					x:0,
 					y:0,
 					colour:'#fc1'					
 				},function(){
-					this.x = Math.round((E.controls.getMouseX()-10)/20)*20;
-					this.y = Math.round((E.controls.getMouseY()-10)/20)*20;
+					this.x = Math.round((E.controls.getMouseX()-5)/10)*10;
+					this.y = Math.round((E.controls.getMouseY()-5)/10)*10;
 				}));
 				//horizontal lines
 				var width  = E.game.width;
 				var height = E.game.height;
-				var diff   = 20;
+				var diff   = 10;
 				for(var x = 0 ; x<=width; x+=diff){
 					E.game.add(line(true,x));
 				}
 				//vertical lines
-				diff = 20;
+				diff = 10;
 				for(var x = 0 ; x<height; x+=diff){
 					E.game.add(line(false,x));
 				}
@@ -73,18 +73,17 @@
 					y: 0,
 					colour: '#fb2'
 				}),true);
-				alert(box);
 			},function(){
 			
 			});
 			
 			E.controls.addMouseListener(E.controls.LEFTMB,function(){
-				var x = Math.round((E.controls.getMouseX()-10)/20)*20;
-				var y = Math.round((E.controls.getMouseY()-10)/20)*20;
+				var x = Math.round((E.controls.getMouseX()-5)/10)*10;
+				var y = Math.round((E.controls.getMouseY()-5)/10)*10;
 				
 				E.game.add(new E.shapes.rect({
-					width:20,
-					height:20,
+					width:10,
+					height:10,
 					x:x,
 					y:y,
 					colour:'#fb2'
