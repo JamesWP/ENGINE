@@ -26,12 +26,19 @@
 		$(function(){
 			function line(horz,offset){
 				var paint;
+				var x = 0;
 				if(horz){
+					move = function(){
+						this.x++;
+					}
+					x = offset;
 					paint = function(ctx){
 						ctx.fillStyle = '#000';
-						ctx.fillRect(offset,0,1,E.game.height);
+						ctx.fillRect(this.x,0,1,E.game.height);
 					};
 				}else{
+					//verticle
+					move = function(){};
 					paint = function(ctx){
 						ctx.fillStyle = '#000';
 						ctx.fillRect(0, offset,E.game.width,1);
@@ -39,7 +46,9 @@
 				}
 				
 				return{
-					paint	: paint
+					paint	: paint,
+					move	: move,
+					x		: x
 				}
 			};
 			E.game.init('#canvasWrap',function(){
@@ -52,6 +61,7 @@
 				},function(){
 					this.x = Math.round((E.controls.getMouseX()-5)/10)*10;
 					this.y = Math.round((E.controls.getMouseY()-5)/10)*10;
+					this.x++
 				}));
 				//horizontal lines
 				var width  = E.game.width;
@@ -60,11 +70,13 @@
 				for(var x = 0 ; x<=width; x+=diff){
 					E.game.add(line(true,x));
 				}
+				E.game.add(line(true,x));
 				//vertical lines
 				diff = 10;
 				for(var x = 0 ; x<height; x+=diff){
 					E.game.add(line(false,x));
 				}
+				E.game.add(line(false,x));
 				
 				box = E.game.add(new E.shapes.rect({
 					width: 20,
@@ -72,9 +84,13 @@
 					x: 0,
 					y: 0,
 					colour: '#fb2'
+				},function(){
+					this.x++;
 				}),true);
 			},function(){
-			
+				if(E.game.frame % 10 == 0){
+					E.game.add(new line(true,1));
+				}
 			});
 			
 			E.controls.addMouseListener(E.controls.LEFTMB,function(){
@@ -87,6 +103,8 @@
 					x:x,
 					y:y,
 					colour:'#fb2'
+				},function(){
+					this.x++
 				}),true);
 			});
 			E.controls.addKeyListener('w',function(){
