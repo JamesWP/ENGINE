@@ -200,7 +200,7 @@ E.game = (function(){
 		if(typeof loop ==='function')
 			loop();
 		E.game.frame++;
-		setTime();
+		setTime(); 
 		requestAnimFrame(start,canvas);
 	}
 	function update(diff){
@@ -215,13 +215,13 @@ E.game = (function(){
 				}
 			}
 		}
-		/*if(frame % 500 == 0){
+		if(frame % 500 == 0){
 			var no = forRemoval.length;
 			for(var i = 0 ; i<no;i++){
-				//objects.splice(forRemoval[i],1);
+				objects.splice(forRemoval[i],1);
 			}
 			forRemoval = [];
-		}*/
+		}
 	}
 
 	return{
@@ -260,13 +260,11 @@ E.game = (function(){
 		};
 	};
 	shapes.circle = function circle(diam,x,y,colour,movefunc,vars){
-		
 		// variables
 		this.y 			= y;
 		this.x 			= x;
 		this.diam 		= diam;
 		this.colour 	= colour;
-
 		// functions
 		this. move 		 = movefunc;
 		this. paint 	 = function(ctx){

@@ -64,9 +64,7 @@
 		
 		E.controls.keys[code] = true;
 		
-		if(typeof(E.controls.keyEvents[code])==='function'){
-			E.controls.keyEvents[code]();
-		}
+
 		console.log('keydown',e.which);
 	};
 	controls.prototype.keyup = function(e){
@@ -77,8 +75,11 @@
 		else if (e.which)
 			code = e.which;
 		
+		if(typeof(E.controls.keyEvents[code])==='function'){
+			E.controls.keyEvents[code]();
+		}
 		E.controls.keys[code] = false;
-		console.log('keyup',e.which);
+		console.log('keyup',String.fromCharCode(e.which));
 	};
 
 	controls.prototype.removeMouseListener = function(button){
@@ -88,10 +89,13 @@
 			this.mouseEvents[button] = func;
 	};
 	controls.prototype.removeKeyListener = function(key){
-		this.keyEvents[key] = undefined;
+		var code = key.toUpperCase().charCodeAt(0);
+		this.keyEvents[code] = undefined;
 	};
 	controls.prototype.addKeyListener = function(key,func){
-		this.keyEvents[key] = func;
+		var code = key.toUpperCase().charCodeAt(0);
+		E.l(code);
+		this.keyEvents[code] = func;
 	};
 	controls.prototype.getKeyState = function(keyno){
 		keyno = keyno || 1;

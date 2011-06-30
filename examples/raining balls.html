@@ -26,13 +26,14 @@
 	</style>
 	
 	<script src='lib/jquery.js'></script>
+	
 	<script src='../E/main.js'></script>
 	<script src='../E/shapes.js'></script>
 	<script src='../E/controls.js'></script>
 	<script src='../E/vector.js'></script>
 	
 	<!--
-	<script src='javaclasstest.js'></script>
+	<script src='../E-MIN/E.min.js'></script>
 	-->
 		
 	</script>
@@ -42,7 +43,7 @@
 			E.game.init(element,function(){
 				E.controls.addMouseListener(E.controls.LEFTMB,function(){
 					var speedsize = 5 - Math.random()*2;
-					var circle = new E.shapes.circle(speedsize*5,E.controls.getMouseX(),E.controls.getMouseY(),'#fc1',function(diff){
+					var circle = new E.shapes.circle({diam:speedsize*5,x:E.controls.getMouseX(),y:E.controls.getMouseY(),colour:'#fc1'},function(diff){
 						if(this.y<=E.game.height+this.diam)
 							this.y += diff * 1/this.speed;
 						else
@@ -54,12 +55,12 @@
 				if(E.game.frame % 3 == 0){
 					var speedsize = 5 - Math.random()*2;
 					var width = (E.game.frame*Math.random()*140) % E.game.width;
-					var circle = new E.shapes.circle(speedsize*5,width,-speedsize*5,'#fc1',function(diff){
+					var circle = new E.shapes.circle({diam:speedsize*5,x:width,y:-speedsize*5,colour:'#fc1',speed:speedsize},function(diff){
 						if(this.y<=E.game.height+this.diam)
 							this.y += diff * 1/this.speed/4;
 						else
 							return false;
-					},{speed:speedsize});
+					});
 					E.game.add(circle);
 				}
 			});

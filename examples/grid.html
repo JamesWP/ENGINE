@@ -9,52 +9,105 @@
 	</style>
 	
 	<script src='lib/jquery.js'></script>
-	<script src='lib/E/main.js'></script>
-	<script src='lib/E/shapes.js'></script>
-	<script src='lib/E/controls.js'></script>
-	<script src='lib/E/vector.js'></script>
+	
+	<script src='../E/main.js'></script>
+	<script src='../E/shapes.js'></script>
+	<script src='../E/controls.js'></script>
+	<script src='../E/vector.js'></script>
 	
 	<!--
-	<script src='javaclasstest.js'></script>
+	<script src='../E-MIN/E.min.js'></script>
 	-->
 		
 	</script>
 	<script>
 		
+		var box;
 		$(function(){
 			function line(horz,offset){
 				var paint;
 				if(horz){
 					paint = function(ctx){
-						ctx.fillSytle = '#000';
-						ctx.fillRect(0, offset,E.game.height,1);
+						ctx.fillStyle = '#000';
+						ctx.fillRect(offset,0,1,E.game.height);
 					};
 				}else{
 					paint = function(ctx){
 						ctx.fillStyle = '#000';
-						ctx.fillRect(offset,0,1,E.game.width);
+						ctx.fillRect(0, offset,E.game.width,1);
 					};
 				}
 				
 				return{
 					paint	: paint
 				}
-			}
-			E.game.init(function(){
-				var lines = 10;
-				var diff = E.game.width / 10;
-				for(var x = 0 ; x<lines*10 ; x+=diff){
-					
+			};
+			E.game.init('#canvasWrap',function(){
+				E.game.add(new E.shapes.rect({
+					width:20,
+					height:20,
+					x:0,
+					y:0,
+					colour:'#fc1'					
+				},function(){
+					this.x = Math.round((E.controls.getMouseX()-10)/20)*20;
+					this.y = Math.round((E.controls.getMouseY()-10)/20)*20;
+				}));
+				//horizontal lines
+				var width  = E.game.width;
+				var height = E.game.height;
+				var diff   = 20;
+				for(var x = 0 ; x<=width; x+=diff){
+					E.game.add(line(true,x));
 				}
+				//vertical lines
+				diff = 20;
+				for(var x = 0 ; x<height; x+=diff){
+					E.game.add(line(false,x));
+				}
+				
+				box = E.game.add(new E.shapes.rect({
+					width: 20,
+					height: 20,
+					x: 0,
+					y: 0,
+					colour: '#fb2'
+				}),true);
+				alert(box);
 			},function(){
 			
 			});
+			
+			E.controls.addMouseListener(E.controls.LEFTMB,function(){
+				var x = Math.round((E.controls.getMouseX()-10)/20)*20;
+				var y = Math.round((E.controls.getMouseY()-10)/20)*20;
+				
+				E.game.add(new E.shapes.rect({
+					width:20,
+					height:20,
+					x:x,
+					y:y,
+					colour:'#fb2'
+				}),true);
+			});
+			E.controls.addKeyListener('w',function(){
+				box.y -= 20;
+			});
+			E.controls.addKeyListener('a',function(){
+				box.x -= 20;
+			});
+			E.controls.addKeyListener('s',function(){
+				box.y += 20;
+			});
+			E.controls.addKeyListener('d',function(){
+				box.x += 20;
+			});			
 		});
 	</script>
 </head>
 <body>
 	
-	<div id = 'canvasWrap'></div>
+	<div id ='canvasWrap'></div>
 
 </body>
 </html>

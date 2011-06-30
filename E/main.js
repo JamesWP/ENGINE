@@ -60,8 +60,14 @@ E.game = (function(){
 		start();
 	}
 	
-	function add(obj){
-		objects.push(obj);
+	function add(obj,start){
+		if(start){
+			objects.unshift(obj);
+			return objects[0];
+		}else{
+			objects.push(obj);
+			return objects[objects.length - 1];
+		}
 	}
 	
 	function start(){
@@ -106,6 +112,21 @@ E.game = (function(){
 		offset	: offset
 	};
 })();
+
+// HELPERS
+(function(E){
+	function makeAlias(object, name) {
+	    var fn = object ? object[name] : null;
+	    if (typeof fn == 'undefined') return function () {};
+	    return function () {
+	        return fn.apply(object, arguments);
+	    };
+	}
+	E.l = makeAlias(console, 'log');
+})(E);
+
+
+
 /**
  *  end of file main.js
  */
